@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách sản phẩm máy tính</title>
+    <title>{{ $title }}</title>
     <style>
         * {
             margin: 0;
@@ -275,6 +275,15 @@
                 </div>
             </div>
         </div>
+
+        @foreach  ($product as $p)
+            <div>
+                <h2>{{$p['name']}}</h2>
+                <span>{{$p['price']}}</span>
+            </div>
+        @endforeach
+
+
     </div>
 </body>
 </html>
