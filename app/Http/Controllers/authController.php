@@ -30,15 +30,32 @@ class authController extends Controller
     public function handleRegister(Request $request){
         $inputUsername = $request->input("username");
         $inputPassword = $request->input("password");
+        $repass = $request->input("repass");
+        $mssv = $request->input("mssv");
+        $lopmonhoc = $request->input("lopmonhoc");
+        $gioitinh = $request->input("gioitinh");
         
-        if($inputUsername != '' && $inputPassword != "")
+        if($inputUsername != '' && $inputPassword != "" && $mssv == "0217367" && $lopmonhoc == "67PM1" && $gioitinh == "Nam" && $repass == $inputPassword)
         {
             $this->username = $inputUsername;
             $this->password = $inputPassword;
             return "Register success";
         }
         else{
-            return "Register false - Username or password is empty";
+            return "Register false";
+        }
+    }
+    public function indexRegister(){
+        return view('register');
+    }
+    public function handleInputAge(Request $request){
+        $age = $request->input("age");
+        
+        if($age >= 18){
+            session(["age" => $age]);
+            return redirect("/")->with("success", "Chào mừng bạn đến với website!");
+        } else {
+            return redirect("/input_age")->with("error", "Bạn phải từ 18 tuổi trở lên để truy cập!");
         }
     }
 }

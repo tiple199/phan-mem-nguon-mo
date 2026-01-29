@@ -6,6 +6,12 @@
     <title>Home Page</title>
 </head>
 <body>
-    Home Page
+    <h1>Home Page</h1>
+    
+    @if(session('success'))
+        <p style="color: green;">{{ session('success') }}</p>
+    @endif
+    
+    <p>Chào mừng! Tuổi của bạn: {{ session('age') }}</p>
 </body>
 </html>
