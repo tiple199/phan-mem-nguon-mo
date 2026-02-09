@@ -3,27 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class authController extends Controller
+
 {
-    public string $username = 'tiep';
-    public string $password = '123';
+    
+    // show login
+    public function index(){
+        return view('login');
+    }
     
     public function checkLogin(Request $request){   
-        $inputUsername = $request->input("username");
-        $inputPassword = $request->input("password");
+        // $inputUsername = $request->input("username");
+        // $inputPassword = $request->input("password");
         
-        if($inputUsername == "" || $inputPassword == "")
-        {
-            return "Login false - Username or password is empty";
-        }
+        // if($inputUsername == "" || $inputPassword == "")
+        // {
+        //     return "Login false - Username or password is empty";
+        // }
         
-        if($inputUsername == $this->username && $inputPassword == $this->password)
-        {
-            return "Login success";
-        }
-        else{
-            return "Login false - Invalid credentials";
+        // if($inputUsername == $this->username && $inputPassword == $this->password)
+        // {
+        //     return "Login success";
+        // }
+        // else{
+        //     return "Login false - Invalid credentials";
+        // }
+        $account = $request->only('email', 'password');
+        Auth::attempt($account);
+        if (Auth::check()) {
+            return redirect('/admin');
+        } else {
+            return redirect('/login')->with('error', 'Invalid credentials');
         }
     }
     

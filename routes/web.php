@@ -7,6 +7,7 @@ use App\Http\Controllers\authController;
 use App\Http\Middleware\checkTimeAccess;
 use App\Http\Middleware\checkAge;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('home');
@@ -23,8 +24,12 @@ Route::resource("test",TestController::class);
 Route::prefix('/product')->middleware([checkTimeAccess::class])->group(function(){
     Route::controller(ProductController::class)->group(function(){
         Route::get("/", "index")->name("product");
-        Route::get("/add", "add")->name("add");
+        Route::get("/add", "create")->name("add");
+        Route::post("/store", "store")->name("store");
+        Route::get("/edit/{id?}", "show")->name("edit");
+        Route::put("/update/{id?}", "update")->name("update");
         Route::get("/detail/{id?}", "getDetail");
+        Route::delete("/delete/{id?}", "destroy")->name("delete");
         
         // check middleware single
         // Route::get("/", "index")->name("product")->middleware(checkTimeAccess::class);
@@ -46,14 +51,13 @@ Route::get('/banco/{n}', function($n){
 
 
 Route::controller(authController::class)->group(function(){
-    Route::post("/login", "checkLogin");
+    // Route::post("/login", "checkLogin");
+    Route::post("/checkLogin", "checkLogin");
     Route::get("/register","indexRegister");
     Route::post("/checkRegister", "handleRegister");
     });
 
-Route::get('/login', function(){
-    return view('login');
-});
+Route::get('/login', [authController::class, 'index'])->name("login");
 
 
 Route::get("/input_age",function (){
@@ -61,3 +65,18 @@ Route::get("/input_age",function (){
 });
 
 Route::post("/handle-input-age", [authController::class, 'handleInputAge'])->name("handleAge");
+
+Route::controller(ProductController::class)->group(function(){
+    Route::get("/admin", "index")->name("admin");
+});
+
+// category routes
+Route::controller(CategoryController::class)->group(function(){
+    Route::get("/admin/category", "index")->name("category.index");
+    Route::get("/admin/category/add", "create")->name("category.create");
+    Route::post("/admin/category/store", "store")->name("category.store");
+    Route::get("/admin/category/edit/{id?}", "edit")->name("category.edit");
+    Route::put("/admin/category/update/{id?}", "update")->name("category.update");
+    Route::delete("/admin/category/delete/{id?}", "destroy")->name("category.delete");
+});
+// category  routes end
