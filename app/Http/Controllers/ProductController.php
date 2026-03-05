@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Product;
+use App\Models\Category;
 
 use Illuminate\Http\Request;
 
@@ -23,7 +24,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view("product.add");
+        $categories = Category::all();
+        $title="Add Product";
+        return view("admin.product.add",['title'=>$title,'categories'=>$categories]);
     }
 
     /**
@@ -34,11 +37,14 @@ class ProductController extends Controller
         //
         $product = new Product;
         $product->name = $request->name;
+        $product->category_id = $request->category_id;
+        $product->image = $request->image;
+        $product->sale_price = $request->sale_price;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
         $product->save();
-        return redirect('/product');
+        return redirect('/admin/product');
     }
 
     /**
@@ -57,7 +63,10 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         //
-        return view("product.edit");
+        $categories = Category::all();
+        $product = Product::find($id);
+        $title = "Edit Product";
+        return view("admin.product.edit", ['product'=>$product, 'categories'=>$categories, 'title'=>$title]);
     }
 
     /**
@@ -69,6 +78,9 @@ class ProductController extends Controller
         $product = Product::find($id);
         
         $product->name = $request->name;
+        $product->category_id = $request->category_id;
+        $product->image = $request->image;
+        $product->sale_price = $request->sale_price;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->stock = $request->stock;
@@ -83,8 +95,10 @@ class ProductController extends Controller
     {
         //
         $product = Product::find($id);
-        $product->delete();
-        return redirect("/product");
+        // $product->delete();
+        $product->is_deleted = 1;
+        $product->save();
+        return redirect("/admin/product");
     }
 
 }

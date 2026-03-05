@@ -18,10 +18,15 @@ class ProductFactory extends Factory
     {
         return [
             //
-            "name"=>fake()->word(3,true),
-            "price"=>fake()->randomFloat(2,10,500),
-            "description"=>fake()->sentence(10,true),
-            "stock"=>fake()->numberBetween(0,100),
+            'category_id' => null,
+            'name' => $this->faker->word(),
+            'description' => $this->faker->sentence(),
+            'price' => $this->faker->randomFloat(2, 1, 100),
+            'sale_price' => null,
+            'stock' => $this->faker->numberBetween(0, 100),
+            'image' => null,
+            'is_active' => true,
+            'is_deleted' => false,
         ];
     }
 }

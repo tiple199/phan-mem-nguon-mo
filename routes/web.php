@@ -80,3 +80,19 @@ Route::controller(CategoryController::class)->group(function(){
     Route::delete("/admin/category/delete/{id?}", "destroy")->name("category.delete");
 });
 // category  routes end
+
+// category routes
+Route::controller(ProductController::class)->group(function(){
+    Route::get("/admin/product", "index")->name("product.index");
+    Route::get("/admin/product/add", "create")->name("product.create");
+    Route::post("/admin/product/store", "store")->name("product.store");
+    Route::get("/admin/product/edit/{id?}", "edit")->name("product.edit");
+    Route::put("/admin/product/update/{id?}", "update")->name("product.update");
+    Route::put("/admin/product/delete/{id?}", "destroy")->name("product.delete");
+});
+// category  routes end
+
+// show index
+Route::get("/index", function(){
+    return view("index");
+})->name("index");

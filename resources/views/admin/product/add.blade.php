@@ -1,25 +1,32 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm sản phẩm máy tính</title>
-    
-</head>
-<body>
-    <div>
-        <form action="/product/store" method="post">
+@extends('layout.admin')
+@section("content")
+    <form action="/admin/product/store" method="post">
             @csrf
+            <label for="">Category_id</label>
+            <select name="category_id" id="">
+                <option value="">Null</option>
+                @foreach  ($categories as $c)
+                    <option value="{{$c->id}}">{{$c->name}}</option>
+                @endforeach
+            </select>
+            <br><br>
             <label for="">Name</label>
-            <input type="text" name="name"> <br><br>
-            <label for="">Description</label>
-            <input type="text" name="description"><br> <br>
+            <input type="text" name="name" > <br><br>
             <label for="">Price</label>
-            <input type="text" name="price"> <br><br>
+            <input type="text" name="price" > <br><br>
+            <label for="">Sale_Price</label>
+            <input type="text" name="sale_price" > <br><br>
             <label for="">Stock</label>
-            <input type="text" name="stock"> <br><br>
-            <button type="submit">Add</button>
+            <input type="text" name="stock" > <br><br>
+            <label for="">Description</label>
+            <input type="text" name="description" ><br> <br>
+            <label for="">Image</label>
+            <input type="text" name="image" > <br><br>
+            
+            <label for="">Is_Active</label>
+            <input type="text" name="is_active"> <br><br>
+            <label for="">Is_Delete</label>
+            <input type="text" name="is_deleted"> <br><br>
+            <button type="submit">Create</button>
         </form>
-    </div>
-</body>
-</html>
+@endsection

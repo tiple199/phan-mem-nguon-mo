@@ -90,6 +90,33 @@
           </li>
           <!-- Category Manger end -->
 
+          <!-- Product Manager -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
+              <p>
+                Product
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin/product" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Xen danh sách</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/admin/product/add" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm mới</p>
+                </a>
+              </li>
+              
+            </ul>
+          </li>
+          <!-- Product Manager end -->
+
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
